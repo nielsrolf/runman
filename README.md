@@ -4,6 +4,13 @@ Module to handle programs that generate data. If you have an experiment that gen
 ## Start run
 `runman <python file> <run name> [args]`
 
+## Random seeds
+Runman can also set random seeds for numpy (and scipy, which uses numpys random generator), tensorflow and Pythons random module.
+In order to do this, place `<seeds>` in your main template, before the first random number is generated,
+at a place where the code is not indented. It also has the following restrictions: `random` must be imported as `random`,
+`numpy` as `np`and tensorflow as `tf`. You can change these conventions if you need at the beggining of the script.
+Then run `runman makeconfigs <template> [<options>]`
+
 ## Manage different versions
 I often run the same simulation with, say, three different neural networks, two data sets and two different noise levels. Runman can also handle this for you: you create one file that contains something like this:
 
