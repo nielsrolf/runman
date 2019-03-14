@@ -45,8 +45,54 @@ Runman also suggets names for the directories for each generated config file tha
 ## Setup
 
 For convenient use, set an alias:
-`alias runman='<path to runman.py>'`
+`alias runman='python <path to runman.py>`
 
 
 ## TODO
 - Real argument parser
+
+## Example
+This is an example foor generating the configurated files in `examples/src`.
+
+First, we generate the config files 
+```
+runman git:(master) ✗ cd example/src 
+➜  src git:(master) ✗ runman makeconfigs random_distribution.py configs.py
+runman config0.py 1-1
+runman config1.py -2-1
+runman config2.py 0.5-1
+runman config3.py 1-2
+runman config4.py -2-2
+runman config5.py 0.5-2
+runman config6.py 1-3
+runman config7.py -2-3
+runman config8.py 0.5-3
+```
+
+Then we run one of the configs, which will create a new folder in `../runs`
+
+```
+➜  src git:(master) ✗ runman config8.py 0.5-3                             
+Scanning configs.py
+mkdir  ../runs/0.5-3
+Scanning config8.py
+Skip config file config3.py
+Skip config file config7.py
+Skip config file config6.py
+Scanning __pycache__
+Scanning __pycache__/configs.cpython-36.pyc
+Skip config file config2.py
+Skip config file config5.py
+Skip config file config1.py
+Skip config file config0.py
+Scanning random_distribution.py
+Skip config file config4.py
+```
+
+Now, we can run the experiment again, and the plot doesn't change even though it's randomly generated.
+
+```
+➜  example git:(master) ✗ cd ../runs
+➜  runs git:(master) ✗ cd 0.5-3
+➜  0.5-3 git:(master) ✗ source again.sh
+```
